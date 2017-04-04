@@ -1,40 +1,52 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script src="~/Scripts/knockout-3.4.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/table.js"></script>
+
+<div class="page-header">
+    <h2 class="text-center">Добавление пользователя</h2>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title">Добавить нового пользователя</h2>
+            </div>
+            <div class="panel-body" data-bind="with: addUsersViewModel">
+                @Html.Partial("_RegisterUsers")
+            </div>
+        </div>
+    </div>
+    <br />
+   
+    <div class="col-md-8"  style="float:right;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Список пользователей</h2>
+            </div>
+            <div class="panel-body" data-bind="with: paginationViewModel">
+                @Html.Partial("_UserList")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" data-bind="visible:Display">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title">Редактировать  пользователя</h2>
+            </div>
+            <div class="panel-body" data-bind="with: addUsersViewModel">
+                @Html.Partial("_EditUser")
+            </div>
+        </div>
+    </div>
 
 
-    <table data-bind="visible: people().length>0" style="border: 1px solid black;">
-        <thead>
-            <tr><th>ID<th>Имя</th><th>Фамилия</th></tr>
-        </thead>
-        <tbody data-bind="foreach: people">
-
-            <tr>
-                <td data-bind="text: $data.id"></td>
-                <td data-bind="text: $data.firstName"></td>
-                <td data-bind="text: $data.lastName"></td>
-                <td><a href="#" data-bind="click: $root.removePerson">Удалить</a></td>
-                <td><a href="#" data-bind="click: $root.Display">Редактировать</a></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <form data-bind="submit:addPerson">
-        Имя пользователя <input type="text" data-bind='value:Name, valueUpdate: "afterkeydown"' />
-        <br>
-        Фамилия пользователя <input type="text" data-bind='value:LastName, valueUpdate: "afterkeydown"' />
-        <br>
-        <button type="submit"> Добавить</button> <button data-bind="click: sortItems">Сортировка</button>
-    </form>
-    <form data-bind="visible:editDisplay, submit:addPerson.bind($data, ID)">
-        Имя пользователя <input type="text" data-bind='value:Name, valueUpdate: "afterkeydown"' />
-        <br>
-        Фамилия пользователя <input type="text" data-bind='value:LastName, valueUpdate: "afterkeydown"' />
-        <br>
-        <button type="submit"> Редактировать</button>
-    </form>
+</div>
 
 
 
 
-    <script  type='text/javascript' src="~/Scripts/table.js"></script>
